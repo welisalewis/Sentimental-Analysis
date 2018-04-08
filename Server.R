@@ -17,7 +17,12 @@ library(shiny)
 
 load("twitter authentication.Rdata")
 #11registerTwitterOAuth(cred)
-setup_twitter_oauth(cred)
+consumer_key<-"fXM3Lm87t5IsaPuGV61d4HDR"
+consumer_secret<-"W868C5RJaCp8dy0AItJBfqJD0xsxr1BBRZwBiOvhPvZweMzr36"
+access_token<-"939894594128420865-HEH5c7U8cGpjN4SlxGjukWP3Ebe7AED'"
+access_secret<-"8zZse4mPsImpfPXTBtMEZtGguL2BtVtwaSW1ItzcpZwqI"
+
+setup_twitter_oauth(consumer_key,consumer_secret,access_token,access_secret)
 
 # Function to create a data frame from tweets
 shinyServer(function(input, output,session) {
@@ -44,6 +49,7 @@ shinyServer(function(input, output,session) {
   {
     twtList<-searchTwitter(searchTerm,n=maxTweets,cainfo="cacert.pem",lang="en")
     twtList1<- do.call("rbind",lapply(twtList,as.data.frame))
+    twtList1<-do.call("rbind", lapply(tweet$text, as.character))
     twtList1$text<-iconv(twtList1$text, 'UTF-8', 'ASCII') #WILL THIS SOLVE THE UTF ENCODING PROBLEM: http://lists.hexdump.org/pipermail/twitter-users-hexdump.org/2013-May/000335.html
     return(twtList1)
     
