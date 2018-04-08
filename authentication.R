@@ -1,0 +1,41 @@
+install.packages("twitteR")
+install.packages("ROAuth")
+install.packages("devtools")
+install.packages("stringr")
+install.packages("RCurl")
+install.packages("ggplot2")
+install.packages("reshape")
+install.packages("tm")
+install.packages("RJSONIO")
+install.packages("wordcloud")
+install.packages("gridExtra")
+install.packages("plyr")
+install.packages("shiny")
+devtools::install_github("rstudio/shiny-incubator")
+devtools::install_github('rstudio/rscrypt')
+devtools::install_github('rstudio/shinyapps')
+library(ROAuth)
+library(twitteR)
+library(stringr)
+library(ROAuth)
+library(RCurl)
+library(ggplot2)
+library(reshape)
+library(tm)
+library(RJSONIO)
+library(wordcloud)
+library(gridExtra)
+library(plyr)
+library(shinyIncubator)
+library(shiny)
+# Download "cacert.pem" file
+download.file(url="http://curl.haxx.se/ca/cacert.pem",destfile="cacert.pem")
+
+#create an object "cred" that will save the authenticated object that we can use for later sessions
+cred <- OAuthFactory$new(consumerKey='4EQSdarA56VUQ5bFdJsgnv5ig',consumerSecret='WcNwPxT9wVOJuW1My0XEtwaiXkaEMgGgYXOdERDQds1kgOtOpM',requestURL='https://api.twitter.com/oauth/request_token',accessURL='https://api.twitter.com/oauth/access_token',authURL='https://api.twitter.com/oauth/authorize')
+# Executing the next step generates an output --> To enable the connection, please direct your web browser to: <hyperlink> . Note:  You only need to do this part once
+cred$handshake(cainfo="cacert.pem")
+save(cred, file="twitter authentication.Rdata")
+
+
+  
